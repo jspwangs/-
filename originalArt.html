@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原创艺术</title>
+    <link rel="stylesheet" href="../css/originalArt.css">
+    <link rel="stylesheet" href="../comm/bootstrap3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="../comm/font-awesome-4.7.0/css/font-awesome.css">
+</head>
+<body>
+<section>
+    <!--条件筛选-->
+    <div>
+        <!--快速筛选-->
+        <div class="fastScreen">
+            <!--筛选left-->
+            <div class="col-lg-8 col-md-8 col-sm-8">
+                <!--筛选left-基本信息-->
+                <div class="fastScreenInfo col-lg-8 col-md-8 col-sm-8 text-center">
+                    <span class="col-lg-2 col-md-2 col-sm-2">价格</span>
+                    <ul class="col-lg-9 col-md-9 col-sm-9 priceLabel">
+                        <li pricetext="0-￥2000">0-$2,000</li>
+                        <li pricetext="￥2000-￥8000">$8,000</li>
+                        <li pricetext="￥8000-￥15000">$15,000</li>
+                        <li pricetext="￥15000-￥30000">$30,000</li>
+                        <li pricetext="￥30000-max">max</li>
+                    </ul>
+                    <span class="col-lg-2 col-md-2 col-sm-2">尺寸</span>
+                    <ul class="col-lg-9 col-md-9 col-sm-9 sizeLabel">
+                        <li sizetext="0-50cm">0-50cm</li>
+                        <li sizetext="50cm-100cm">100cm</li>
+                        <li sizetext="100cm-150cm">150cm</li>
+                        <li sizetext="150cm-200cm">200cm</li>
+                        <li sizetext="200cm-max">max</li>
+                    </ul>
+                    <span class="col-lg-2 col-md-2 col-sm-2">颜色</span>
+                    <ul class="col-lg-9 col-md-9 col-sm-9 colorLabel">
+                        <li colortext="红色系" colorattr="#E73233">&nbsp;</li>
+                        <li colortext="黄色系" colorattr="#FFEA03">&nbsp;</li>
+                        <li colortext="绿色系" colorattr="#32CC66">&nbsp;</li>
+                        <li colortext="蓝色系" colorattr="#0099FF">&nbsp;</li>
+                        <li colortext="黑白灰" colorattr="#666">&nbsp;</li>
+                    </ul>
+                </div>
+                <!--筛选left-摆放空间-->
+                <div class="col-lg-2 col-md-2 col-sm-2 spaceLabel">
+                    <h5>摆放空间</h5>
+                    <ul>
+                        <li>办公</li>
+                        <li>客厅</li>
+                        <li>书房</li>
+                        <li>餐厅</li>
+                        <li>儿童房</li>
+                        <li>走廊/回廊</li>
+                    </ul>
+                </div>
+                <!--筛选left-分类-->
+                <div class="col-lg-2 col-md-2 col-sm-2 classify">
+                    <h5>分类</h5>
+                    <ul>
+                        <li>油画</li>
+                        <li>版画</li>
+                        <li>水墨</li>
+                        <li>水彩(粉)</li>
+                        <li>雕塑</li>
+                        <li>摄影</li>
+                    </ul>
+                </div>
+            </div>
+            <!--筛选right-->
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <!--筛选right-->
+                <div class="text">
+                    <!--风格-->
+                    <ul class="styleLabel">
+                        <li>抽象</li>
+                        <li>具象</li>
+                        <li>观念</li>
+                        <li>传统国画</li>
+                    </ul>
+                    <!--题材-->
+                    <ul class="themeLabel">
+                        <li>人物</li>
+                        <li>风景</li>
+                        <li>静物</li>
+                    </ul>
+                </div>
+                <!--筛选right--详解分类-->
+                <div class="fastScreenSug" fastScreenSug-data="0">
+                    <h3>抽象</h3>
+                    <h3>Abstract Expression</h3>
+                    <hr>
+                    <p>
+                        是既不模仿又不直接再现外在现实，以形式和色彩本身来打动观众的艺术风格。
+                        通过对现实的扭曲变形来表现艺术家的激情和内心幻象，强调表现的自发性和
+                        艺术家的个性。
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!--高级筛选-->
+        <div class="seniorScreen">
+            <!--ssInfo-->
+            <div class="ssInfo">
+                <div>
+                    <p>
+                        <span class="pricemin">￥0</span>-
+                        <span class="pricemax">max</span>
+                    </p>
+                    <span class="col-lg-2 col-md-2 col-sm-2">价格</span>
+                    <div id="range1" class="col-lg-10 col-md-10 col-sm-10">
+                        <div class="readBar1"></div>
+                        <button class="range1Min"></button>
+                        <button class="range1Max"></button>
+                    </div>
+                </div>
+                <div>
+                    <p>
+                        <span class="sizemin">0</span>-
+                        <span class="sizemax">max</span>
+                    </p>
+                    <span class="col-lg-2 col-md-2 col-sm-2">尺寸</span>
+                    <div id="range2" class="col-lg-10 col-md-10 col-sm-10">
+                        <div class="readBar2"></div>
+                        <button class="range2Min"> </button>
+                        <button class="range2Max"> </button>
+                    </div>
+                </div>
+                <div>
+                    <span class="col-lg-2 col-md-2 col-sm-2">颜色</span>
+                    <ul class="col-lg-10 col-md-10 col-sm-10 ssColor">
+                        <li class="pink" colortext="粉红色" colorattr="pink">&nbsp;</li>
+                        <li class="rose_pink" colortext="淡粉红色" colorattr="#fc8b8b">&nbsp;</li>
+                        <li class="brown" colortext="棕色" colorattr="brown">&nbsp;</li>
+                        <li class="red" colortext="红色" colorattr="red">&nbsp;</li>
+                        <li class="orange" colortext="橙色" colorattr="orange">&nbsp;</li>
+                        <li class="khaki" colortext="土黄色" colorattr="khaki">&nbsp;</li>
+                        <li class="yellow" colortext="黄色" colorattr="yellow">&nbsp;</li>
+                        <li class="green" colortext="绿色" colorattr="green">&nbsp;</li>
+                        <li class="kelly_green" colortext="深黄绿色" colorattr="#15a003">&nbsp;</li>
+                        <li class="azure" colortext="青色" colorattr="#0FE2FA">&nbsp;</li>
+                        <li class="blue" colortext="蓝色" colorattr="#0099FF">&nbsp;</li>
+                        <li class="purple" colortext="紫色" colorattr="#7334F2">&nbsp;</li>
+                        <li class="allColor" colortext="多彩" colorattr="repeating-linear-gradient(to right, #FFB92D , #FFFF2C , #9BC721 , #41BECC)">&nbsp;</li>
+                        <li class="black" colortext="黑色" colorattr="black">&nbsp;</li>
+                        <li class="white" colortext="白色" colorattr="white">&nbsp;</li>
+                        <li class="grey" colortext="灰色" colorattr="grey">&nbsp;</li>
+                    </ul>
+                </div>
+
+            </div>
+            <!--ssItem-->
+            <div class="ssItem text-center">
+                <div class="col-lg-3 col-md-3 col-sm-3 ssSpace">
+                    <h5>摆放空间</h5>
+                    <ul>
+                        <li>办公</li>
+                        <li>客厅</li>
+                        <li>书房</li>
+                        <li>餐厅</li>
+                        <li>儿童房</li>
+                        <li>走廊/回廊</li>
+                        <li>卧室</li>
+                        <li>酒店大堂</li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3 ssClassify">
+                    <h5>分类</h5>
+                    <ul>
+                        <li>油画</li>
+                        <li>版画</li>
+                        <li>水墨</li>
+                        <li>水彩</li>
+                        <li>雕塑</li>
+                        <li>摄影</li>
+                        <li>书法</li>
+                        <li>其他</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <h5>风格</h5>
+                    <ul class="ssStyle">
+                        <li>抽象</li>
+                        <li>具象</li>
+                        <li>观念</li>
+                        <li>卡通</li>
+                        <li>传统国画</li>
+                        <li>实验水墨</li>
+                        <li>其他</li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <h5>题材</h5>
+                    <ul class="ssTheme">
+                        <li>风景</li>
+                        <li>人物</li>
+                        <li>静物</li>
+                        <li>动物</li>
+                        <li>花鸟</li>
+                        <li>山水</li>
+                        <li>其他</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--条件搜索-->
+    <div class="search">
+        <div>
+            <button type="button" id="reset">重置</button>
+            <span class="iconfont searchSpan">&#xe624;  <input type="text" placeholder="搜索艺术家或艺术品" id="search"></span>
+            <button type="button" id="startScreen">开始筛选</button>
+        </div>
+        <button id="searchBt"><span class="searchText">高级搜索</span> <span class="iconfont">&#xe9f0;</span></button>
+    </div>
+    <!--商品展示-->
+    <div class="goods">
+        <div><a href="#">艺网></a><a href="#">原创艺术</a></div>
+        <div>
+            <select name="selectTime" id="selectTime">
+                <option value="">上架时间</option>
+                <option value="">上架时间最新</option>
+                <option value="">上架时间最早</option>
+            </select>
+            <select name="selectPrice" id="selectPrice">
+                <option value="">价格</option>
+                <option value="">价格从高到底</option>
+                <option value="">价格从底到高</option>
+            </select>
+            <select name="selectOpus" id="selectOpus">
+                <option value="">作品状态</option>
+                <option value="">全部</option>
+                <option value="">未售作品</option>
+            </select>
+        </div>
+        <ul class="showcase">
+            <li class="goodsItem">
+                <div><a href="" data-img><img src="../image/goods/img-1.jpg" alt="" class="goodsImg"></a></div>
+                <div class="goodsText">
+                    <a href="#" class="goodsAuthor" goodsId>作者</a>
+                    <p>
+                        <a href="" class="goodsName">作品名称</a>,<span class="goodsTime">时间</span><br>
+                        <span class="goodsMaterial">画布材质</span> <span class="goodsSize">画布大小</span>
+                    </p>
+                    <p class="goodsPrice">价格</p>
+                </div>
+            </li>
+        </ul>
+        <div>
+            <ul id="pageNum">
+                <li>1</li>
+                <li>2</li>
+            </ul>
+            <div id="nextPage">下一页</div>
+        </div>
+    </div>
+</section>
+
+<script src="../comm/jQuery/jquery-3.3.1.js"></script>
+<script src="../js/originalArt.js"></script>
+</body>
+</html>

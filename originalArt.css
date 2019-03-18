@@ -1,0 +1,456 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.clear{
+    clear: both;
+}
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+section{
+    width: 100%;
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    color: #666;
+}
+/*条件筛选*/
+/*条件筛选-快速筛选*/
+.fastScreen{
+    display: block;
+    overflow: hidden;
+    margin: auto;
+    width: 90%;
+}
+/*条件筛选-快速筛选-left-基本信息*/
+.fastScreenInfo>ul{
+    margin-bottom: 50px;
+}
+.fastScreenInfo>span{
+    font-weight: bold;
+    color: black;
+}
+.fastScreenInfo>ul>li{
+    cursor: pointer;
+    width: 19%;
+    margin-left: 1%;
+    background-color: #DDDDDD;
+    float: left;
+    position: relative;
+}
+/*条件筛选-快速筛选-left-基本信息-颜色*/
+.fastScreenInfo>ul>li:hover{
+    background-color: #C0C0C0;
+}
+.fastScreenInfo>ul:last-child>li:nth-child(1){
+    background-color: #E73233;
+}
+.fastScreenInfo>ul:last-child>li:nth-child(2){
+    background-color: #FFEA03;
+}
+.fastScreenInfo>ul:last-child>li:nth-child(3){
+    background-color: #32CC66;
+}
+.fastScreenInfo>ul:last-child>li:nth-child(4){
+    background-color: #0099FF;
+}
+.fastScreenInfo>ul:last-child>li:nth-child(5){
+    background: repeating-linear-gradient(30deg, #ffffff, #ffffff 2px, #000000 0, #000000 4px);
+}
+.fastScreenInfo>ul:last-child>li:hover{
+    opacity: 0.7;
+}
+
+/*条件筛选-快速筛选-left-摆放空间*/
+.spaceLabel>h5,
+.classify>h5{
+    padding-top: 0;
+    margin-top: 0;
+}
+.spaceLabel>h5,
+.classify>h5
+{
+    font-weight: bold;
+    color: black;
+    font-size: 14px;
+}
+.spaceLabel>ul,
+.classify>ul{
+    margin-top: 30px;
+}
+.spaceLabel>ul>li,
+.classify>ul>li{
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+/*条件筛选-快速筛选-left-分类*/
+
+/*条件筛选-快速筛选-right-抽象*/
+.fastScreen>div:last-child{
+    border-left: 1px solid #eee;
+    padding-left:0;
+}
+.text{
+    width: 25%;
+    float: left;
+    overflow: hidden;
+    text-align: center;
+}
+.text>ul{
+    margin-top: 20px;
+}
+.text>ul>li{
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+/*条件筛选-快速筛选-right-详解分类*/
+.fastScreenSug{
+    width: 75%;
+    float: right;
+    background-image: url("../image/originalArt/0.jpg");
+    background-size: cover;
+    height: 274px;
+    color: #FFFFFF;
+    text-align: center;
+    padding: 20px 10px;
+}
+.fastScreenSug>hr{
+    width: 40%;
+}
+/*条件筛选-高级筛选*/
+.seniorScreen{
+    overflow: hidden;
+    display: none;
+    margin: auto;
+    width: 90%;
+}
+.seniorScreen>div{
+    float: left;
+}
+.seniorScreen>div:first-child{
+    width: 45%;
+}
+.seniorScreen>div:last-child{
+    width: 55%;
+}
+/*条件筛选-高级筛选-ssInfo*/
+.ssInfo>div>p{
+    text-align: right;
+    margin:0 auto 10px;
+    padding: auto;
+}
+.ssInfo>div>span{
+    color: black;
+    font-weight: bold;
+}
+.ssInfo>div{
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+/*条件筛选-高级筛选-基本信息分类-价格*/
+#range1,#range2{
+    background-color: #999;
+    height: 6px;
+}
+.readBar1,.readBar2{
+    width: 100%;
+    position: absolute;
+    height: 6px;
+    background-color: black;
+}
+#range1>button,
+#range2>button
+{
+    cursor: pointer;
+    top: -6px;
+    position: absolute;
+    background-color: white;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 7px;
+    width: 16px;
+    height: 16px;
+}
+.range1Min,
+.range2Min{
+    left: 0;
+}
+.range1Max,
+.range2Max{
+    right: 0;
+}
+
+/*条件筛选-高级筛选-基本信息分类-尺寸*/
+
+/*条件筛选-高级筛选-基本信息分类-颜色*/
+.ssColor>li{
+    float: left;
+    width: 6%;
+    padding: 1px;
+    margin-right: 0.25%;
+    cursor: pointer;
+}
+.pink{
+    background-color: pink;
+}
+.rose_pink{
+    background-color: #fc8b8b;
+}
+.brown{
+    background-color: brown;
+}
+.red{
+    background-color: red;
+}
+.orange{
+    background-color: orange;
+}
+.khaki{
+    background-color: khaki;
+}
+.yellow{
+    background-color: yellow;
+}
+.green{
+    background-color: green;
+}
+.kelly_green{
+    background-color: #15a003;
+}
+.azure{
+    background-color: #0FE2FA;
+}
+.blue{
+    background-color: #0099FF;
+}
+.purple{
+    background-color: #7334F2;
+}
+.allColor{
+    background: repeating-linear-gradient(to right, #FFB92D , #FFFF2C , #9BC721 , #41BECC);
+}
+.black{
+    background-color: black;
+}
+.white{
+    background-color: white;
+    outline: 1px solid #cfcfcf;
+}
+.grey{
+    background-color: grey;
+}
+.ssColor>li:hover{
+    outline: 2px solid #CCCCCC;
+}
+/*条件筛选-高级筛选-right-ssInfo*/
+/*条件筛选-高级筛选-right-ssItem*/
+.ssItem>div>h5{
+    font-weight: bold;
+    font-size: 14px;
+    color: black;
+    margin: auto;
+    padding: auto;
+}
+.ssItem>div>ul{
+    margin-top: 30px;
+}
+.ssItem>div>ul>li{
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+/*条件搜索*/
+.search{
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+    position: relative;
+    width: 90%;
+    padding:10px 5%;
+}
+.search>div{
+    text-align: left;
+    overflow: hidden;
+}
+.search>div>span:not(:last-child){;
+    padding: 0 26px 0 12px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #666;
+    border-radius: 14px;
+    -moz-border-radius: 14px;
+    -webkit-border-radius: 14px;
+    position: relative;
+    line-height: 28px;
+    display: inline-block;
+}
+
+.search>div>span>img{
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    right: 6px;
+    top: 9px;
+    cursor: pointer;
+}
+.shLabel:after{
+    content: " ";
+    width: 1px;
+    height: 28px;
+    position: absolute;
+    background-color: rgba(255,255,255,0.2);
+    top: 0;
+    right: 19px;
+}
+#reset{
+    display: none;
+    background:none;
+    border: none;
+    outline: none;
+}
+.search>div{
+    overflow: hidden;
+}
+.search>div>span:last-child{
+    border-left: 1px solid #DDDDDD;
+    padding-left: 20px;
+    margin-left: 20px;
+}
+.search>div>span.searchSpan{
+    background: transparent;
+}
+#search{
+    outline: none;
+    border: none;
+    font-size: 14px;
+    color: black;
+}
+.searchSpan>i{
+    font-size: 20px;
+    color: #999999;
+}
+#searchBt{
+    position: absolute;
+    outline: none;
+    border: 1px solid #eee;
+    border-top: none;
+    padding: 5px 20px;
+    background: #fcfcfc;
+    margin-top: 10px;
+}
+#startScreen{
+    background-color: #999999;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    float: right;
+    display: none;
+}
+/*商品展示*/
+.goods{
+    padding-top: 33px;
+    width: 100%;
+    border-top: 1px solid #eee;
+}
+.goods>div:first-child{
+    padding-left: 30px;
+    font-size: 12px;
+}
+.goods>div:nth-child(2){
+    width: 85%;
+    text-align: right;
+}
+.goods>div:nth-child(2)>select{
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 12px;
+    outline: none;
+}
+/*商品展示-商品*/
+.showcase{
+    -moz-column-count:3; /* Firefox */
+    -webkit-column-count:3; /* Safari 和 Chrome */
+    column-count:3;
+    column-gap:0;
+    width: 70%;
+    margin:auto;
+    padding-bottom:50px ;
+}
+.showcase>li{
+    margin-left:2.666%;
+    margin-right:2.666%;
+    padding: 20px;
+    break-inside: avoid;
+    box-sizing: border-box;
+}
+.goodsImg{
+    width: 100%;
+}
+.goodsText{
+    padding: 20px 30px 0;
+}
+.goodsAuthor:link,
+.goodsAuthor:visited,
+.goodsAuthor:hover,
+.goodsAuthor:active
+{
+    font-size: 12px;
+    color: black;
+    font-weight: bold;
+}
+.goodsName:link,
+.goodsName:visited,
+.goodsName:hover,
+.goodsName:active{
+    color: #666666;
+    font-size: 12px;
+    font-style: italic;
+}
+.goodsTime,
+.goodsMaterial,
+.goodsSize
+{
+    font-style: italic;
+    font-size: 12px;
+}
+.goodsItem>div:first-child{
+    position: relative;
+}
+.stateTip{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+.goodsPrice{
+    font-weight: bold;
+    color: black;
+}
+.goods>div:last-child{
+    width: 80%;
+    margin: auto;
+}
+#pageNum{
+    width: 40%;
+    margin: auto;
+}
+#pageNum>li{
+    float: left;
+    text-align: center;
+    padding: 10px 0;
+    width: 30%;
+    margin-right: 3.3333%;
+    background-color: black;
+    color: #FFFFFF;
+    font-size: 20px;
+}
+#pageNum>li:first-child{
+    cursor: pointer;
+}
+#pageNum>li:last-child{
+    margin-right: 0;
+    cursor: pointer;
+}
