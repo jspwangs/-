@@ -1,0 +1,366 @@
+<template>
+    <div class="goodsInfo">
+      <el-form :model="goodsList" :rules="rules" ref="goodsList" class="demo-ruleForm">
+        <table class="el-table">
+          <tr>
+            <td>
+              <el-form-item label="商品编号:">
+              <el-input disabled v-model="goodsList.id"></el-input>
+              </el-form-item>
+            </td>
+            <td>
+              <el-form-item label="商品名称:" prop="goods_name">
+              <el-input placeholder="更改商品名称" v-model="goodsList.goods_name"></el-input>
+              </el-form-item>
+            </td>
+            <td>
+              <el-form-item label="价    格::" prop="price">
+              <el-input placeholder="价格"  v-model="goodsList.price"></el-input>
+              </el-form-item>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <el-form-item label="规格(长):" prop="goods_long">
+              <el-input placeholder="长(cm)" v-model="goodsList.goods_long"></el-input>
+              </el-form-item>
+            </td>
+            <td>
+              <el-form-item label="规格(宽):" prop="goods_width">
+              <el-input placeholder="宽(cm)" v-model="goodsList.goods_width"></el-input>
+              </el-form-item>
+            </td>
+            <td>
+              <el-form-item label="规格(高):" prop="goods_height">
+              <el-input placeholder="高(cm)" v-model="goodsList.goods_height"></el-input>
+              </el-form-item>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left">
+              <el-form-item label="作品类型:" prop="classify_name">
+              <el-select v-model="goodsList.classify_name">
+                <el-option v-for="item in classify" :key="item.id" :label="item.classify_name" :value="item.id">
+                </el-option>
+              </el-select>
+              </el-form-item>
+            </td>
+            <td style="text-align: left">
+              <el-form-item label="作品风格:" prop="style_name">
+              <el-select v-model="goodsList.style_name">
+                <el-option v-for="item in style" :key="item.id" :label="item.style_name" :value="item.id">
+                </el-option>
+              </el-select>
+              </el-form-item>
+            </td>
+            <td style="text-align: left">
+              <el-form-item label="作品材质:" prop="goods_material">
+              <el-select v-model="goodsList.goods_material">
+                <el-option v-for="item in makings" :key="item.id" :label="item.value" :value="item.value">
+                </el-option>
+              </el-select>
+              </el-form-item>
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: left">
+              <el-form-item label="作品题材:" prop="theme_name">
+              <el-select v-model="goodsList.theme_name">
+                <el-option v-for="item in theme" :key="item.id" :label="item.theme_name" :value="item.id">
+                </el-option>
+              </el-select>
+              </el-form-item>
+            </td>
+            <td style="text-align: left">
+              <el-form-item label="摆放空间:" prop="space_name">
+              <el-select v-model="goodsList.space_name">
+                <el-option v-for="item in put_space" :key="item.id" :label="item.space_name" :value="item.id">
+                </el-option>
+              </el-select>
+              </el-form-item>
+            </td>
+            <td style="text-align: left">
+              <el-form-item label="作家:" prop="author_name">
+              <el-select v-model="goodsList.author_name">
+                <el-option v-for="item in author" :key="item.id" :label="item.author_name" :value="item.author_id"></el-option>
+              </el-select>
+              </el-form-item>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <el-form-item label="运费:" prop="freight">
+              <el-input placeholder="运费(不填默认为0)" v-model="goodsList.freight"></el-input>
+              </el-form-item>
+            </td>
+            <td>
+              <el-form-item label="创作时间:" prop="goods_date">
+              <el-input placeholder="创作时间" v-model="goodsList.goods_date"></el-input>
+              </el-form-item>
+            </td>
+            <td>
+              <el-form-item label="作品图片:" prop="fileList">
+              <el-upload class="upload-demo" action="" :limit=1 :auto-upload=false :on-change="onchange" :on-remove="handleRemove" :file-list="fileList" list-type="picture">
+                <el-button size="small" type="primary">选择图片</el-button>
+              </el-upload>
+              </el-form-item>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <el-form-item label="色系:" prop="mycolor">
+              <div style="margin-top: 20px">
+                <el-checkbox-group v-model="mycolor">
+                  <el-checkbox v-for="(item,index) in colorLabel" :label="item.value" :key="index" >{{item.value}}</el-checkbox>
+                </el-checkbox-group>
+              </div>
+              </el-form-item>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="3">
+              <div class="footer-td">
+                <router-link to="/goodsManage/delGoods" ><el-button type="primary">返回</el-button></router-link>
+                <el-button type="primary" @click="editGoodsButton('goodsList')">修改</el-button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </el-form>
+      </div>
+</template>
+
+<script>
+export default {
+  name: 'EditGoods',
+  data: function () {
+    var numReg = /^[0-9]+$/
+    var numRe = new RegExp(numReg)
+    var checkLong = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('不能为空'))
+      }
+      setTimeout(() => {
+        if (!numRe.test(value)) {
+          callback(new Error('请输入数字值'))
+        } else {
+          if (value < 18) {
+            callback(new Error('请输入10-500的范围数值'))
+          } else {
+            callback()
+          }
+        }
+      }, 1000)
+    }
+    var checkHeight = (rule, value, callback) => {
+      if (!numRe.test(value)) {
+        callback(new Error('请输入数字值'))
+      } else {
+        if (value > 10 && value < 500) {
+          callback(new Error('10到500之间'))
+        } else {
+          callback()
+        }
+      }
+    }
+    var checkDate = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('不能为空'))
+      } else if (!numRe.test(value)) {
+        callback(new Error('请输入数字值'))
+      } else {
+        if (value < 1600 || value > 2019) {
+          callback(new Error('请输入合理的年份'))
+        } else {
+          callback()
+        }
+      }
+    }
+    var checkPrice = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('不能为空'))
+      } else if (!numRe.test(value)) {
+        callback(new Error('请输入数字值'))
+      } else {
+        if (value < 299) {
+          callback(new Error('不能低于300'))
+        } else {
+          callback()
+        }
+      }
+    }
+    var checkFreight = (rule, value, callback) => {
+      if (!numRe.test(value)) {
+        callback(new Error('请输入数字值'))
+      } else {
+        if (value > 299) {
+          callback(new Error('请输入0-5000的数值'))
+        } else {
+          callback()
+        }
+      }
+    }
+    return {
+      mySelected: {s_author: '', s_classify: '', s_style: '', s_theme: '', s_space: ''},
+      author: [],
+      classify: [],
+      style: [],
+      theme: [],
+      put_space: [],
+      params: { },
+      goodsList: [],
+      checkList: [],
+      makings: [{value: '数码版'}, {value: '布面油画'}, {value: '精铜'}, {value: '纸本水墨'},
+        {value: 'pu+环保玻璃钢'}, {value: '布面丙烯'}, {value: '康颂纸收藏级艺术微喷'}, {value: '树脂着色'}, {value: 'pu+不锈钢'},
+        {value: '丝网版画'}, {value: '青铜着色'}, {value: '泛太克美术纸'}, {value: '木板蜡画'}, {value: '艺术微喷'}],
+      fileList: [{name: '', url: ''}],
+      colorLabel: [{value: '粉红色'}, {value: '淡粉红色'}, {value: '棕色'}, {value: '红色'}, {value: '橙色'},
+        {value: '土黄色'}, {value: '黄色'}, {value: '绿色'}, {value: '深黄绿色'}, {value: '青色'}, {value: '蓝色'},
+        {value: '紫色'}, {value: '多彩'}, {value: '黑色'}, {value: '白色'}, {value: '灰色'}],
+      myChecked: ['红色', '黑色'],
+      mycolor: [],
+      rules: {
+        goods_name: [
+          { required: true, message: '请输入作品名称', trigger: 'blur' },
+          { min: 1, max: 200, message: '长度在 1 到 30 个字符', trigger: 'blur' }
+        ],
+        goods_long: [
+          { validator: checkLong, message: '', trigger: 'blur' }
+        ],
+        goods_width: [
+          { validator: checkWidth, message: '', trigger: 'blur' }
+        ],
+        goods_height: [
+          { validator: checkHeight, message: '', trigger: 'blur' }
+        ],
+        author_name: [
+          { required: true, message: '选择作者', trigger: 'change' }
+        ],
+        classify_name: [
+          { required: true, message: '选择作品分类', trigger: 'change' }
+        ],
+        style_name: [
+          { required: true, message: '选择作品风格', trigger: 'change' }
+        ],
+        theme_name: [
+          { required: true, message: '选择作品题材', trigger: 'change' }
+        ],
+        space_name: [
+          { required: true, message: '选择摆放空间', trigger: 'change' }
+        ],
+        goods_material: [
+          { required: true, message: '选择作品材质', trigger: 'change' }
+        ],
+        goods_date: [
+          { validator: checkDate, message: '', trigger: 'change' }
+        ],
+        mycolor: [
+          { type: 'array', required: true, message: '请至少选择一个色系', trigger: 'change' }
+        ],
+        price: [
+          { validator: checkPrice, message: '', trigger: 'blur' }
+        ],
+        freight: [
+          { validator: checkFreight, message: '', trigger: 'blur' }
+        ]
+      }
+    }
+  },
+  created () {
+    this.params = new FormData()
+    console.log(this.$route.query.goods_id)
+    this.$http.get('/api/goodsManage/getGoodsById', {params: {goods_id: this.$route.query.goods_id}})
+      .then((res) => {
+        this.goodsList = res.data[0][0]
+        let arr = res.data[0][0].color.split(',')
+        for (let i in arr) {
+          this.mycolor.push(arr[i])
+        }
+        this.myImg = res.data[0][0].src
+        this.fileList[0].url = 'http://localhost:4567/' + this.myImg
+        this.fileList[0].name = this.myImg.substr(13)
+        this.author = res.data[1]
+        this.classify = res.data[2]
+        this.style = res.data[3]
+        this.theme = res.data[4]
+        this.put_space = res.data[5]
+        this.mySelected.s_author = res.data[0][0].author_name
+        this.mySelected.s_classify = res.data[0][0].classify_name
+        this.mySelected.s_space = res.data[0][0].space_name
+        this.mySelected.s_style = res.data[0][0].style_name
+        this.mySelected.s_theme = res.data[0][0].theme_name
+        this.mySelected.s_makings = res.data[0][0].goods_material
+      })
+  },
+  methods: {
+    // 修改商品参数
+    editGoodsButton (formName) {
+      let that = this
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let Info = this.goodsList
+          Info.color = this.mycolor.join(',')
+          // 下面append的东西就会到form表单数据的fields中
+          this.params.append('goods_id', this.$route.query.id)
+          this.params.append('goods_name', Info.goods_name)
+          this.params.append('long', Info.goods_long)
+          this.params.append('width', Info.goods_width)
+          this.params.append('height', Info.goods_height)
+          this.params.append('author_id', Info.author_id)
+          this.params.append('classify_id', Info.classify_id)
+          this.params.append('style_id', Info.style_id)
+          this.params.append('theme_id', Info.theme_id)
+          this.params.append('put_space_id', Info.put_space_id)
+          this.params.append('goods_date', Info.goods_date)
+          this.params.append('makings', Info.goods_material)
+          this.params.append('checkList', Info.color)
+          this.params.append('freight', Info.freight)
+          this.params.append('price', Info.price)
+          this.params.append('img', Info.src)
+          let config = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+          that.$http.post('/api/goodsManage/updateImg', this.params, config).then(function (result) {
+            if (result.status === 200) {
+              that.$router.push({path: '/goodsManage/delGoods'})
+            }
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    onchange (file, fileList) {
+      this.params.append('file', file.raw, file.name)
+    },
+    handleRemove (file, fileList) {
+      this.params.clearFiles('file')
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .footer-td{
+    width: 70%;
+    margin: auto;
+    overflow: hidden;
+  }
+  .footer-td>button:first-child{
+    float: left;
+  }
+  .footer-td>button:last-child{
+    float: right;
+  }
+  .goodsInfo{
+    width: 100%;
+    height: 90%;
+    margin-bottom: 20px;
+    overflow-y: auto;
+  }
+  table>tr>td{
+    text-align: center;
+  }
+</style>
