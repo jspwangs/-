@@ -1,0 +1,317 @@
+<template>
+    <div class="goodsInfo">
+      <el-form :model="goodsInfo" :rules="rules" ref="goodsInfo" class="demo-ruleForm">
+        <table class="el-table">
+        <tr>
+          <td>
+            <el-form-item label="作品名称:" prop="goods_id">
+            <el-input v-model="goodsInfo.goods_name" placeholder="商品名称"></el-input>
+            </el-form-item>
+          </td>
+          <td>
+            <el-form-item label="创作时间:" prop="goods_date">
+              <el-input placeholder="年份即可(例：2016)" v-model="goodsInfo.goods_date"></el-input>
+            </el-form-item>
+          </td>
+          <td colspan="2">
+            <el-form-item label="作品图片:" prop="fileList">
+              <el-upload class="upload-demo" action="" :limit=1 :auto-upload=false :on-change="onchange" :on-remove="handleRemove" :file-list="goodsInfo.fileList" list-type="picture">
+                <el-button size="small" type="primary">选择图片</el-button>
+              </el-upload>
+            </el-form-item>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <el-form-item label="规格(长):" prop="long">
+            <el-input placeholder="长(cm)" v-model="goodsInfo.long"></el-input>
+            </el-form-item>
+          </td>
+          <td>
+            <el-form-item label="规格(宽):" prop="width">
+            <el-input placeholder="宽(cm)" v-model="goodsInfo.width"></el-input>
+            </el-form-item>
+          </td>
+          <td>
+            <el-form-item label="规格(高):" prop="height">
+            <el-input placeholder="高(cm)"  v-model="goodsInfo.height"></el-input>
+            </el-form-item>
+          </td>
+        </tr>
+        <tr>
+            <td style="text-align: left">
+              <el-form-item label="作品类型:" prop="classify_id">
+                <el-select  placeholder="请选择" v-model="goodsInfo.classify_id">
+                  <el-option v-for="item in classify" :key="item.id" :label="item.classify_name" :value="item.id">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </td>
+            <td style="text-align: left">
+              <el-form-item label="作品风格:" prop="style_id">
+              <el-select  placeholder="请选择" v-model="goodsInfo.style_id">
+                <el-option v-for="item in style" :key="item.id" :label="item.style_name" :value="item.id">
+                </el-option>
+              </el-select>
+              </el-form-item>
+            </td>
+            <td style="text-align: left">
+              <el-form-item label="作品材质:" prop="makings">
+              <el-select  placeholder="请选择" v-model="goodsInfo.makings">
+                <el-option v-for="item in makings" :key="item.id" :label="item.value" :value="item.value">
+                </el-option>
+              </el-select>
+              </el-form-item>
+            </td>
+          </tr>
+        <tr>
+            <td style="text-align: left">
+              <el-form-item label="作品题材:" prop="theme_id">
+              <el-select placeholder="请选择" v-model="goodsInfo.theme_id">
+                <el-option v-for="item in theme" :key="item.id" :label="item.theme_name" :value="item.id">
+                </el-option>
+              </el-select>
+              </el-form-item>
+            </td>
+            <td style="text-align: left">
+              <el-form-item label="摆放空间:" prop="put_space_id">
+              <el-select  placeholder="请选择" v-model="goodsInfo.put_space_id">
+                <el-option v-for="item in put_space" :key="item.id" :label="item.space_name" :value="item.id">
+                </el-option>
+              </el-select>
+              </el-form-item>
+            </td>
+            <td style="text-align: left">
+              <el-form-item label="作家:" prop="author_id">
+              <el-select placeholder="请选择" v-model="goodsInfo.author_id">
+                <el-option v-for="item in author" :key="item.id" :label="item.author_name" :value="item.author_id">
+                </el-option>
+              </el-select>
+              </el-form-item>
+            </td>
+          </tr>
+        <tr>
+            <td colspan="3">
+              <el-form-item label="色系:" prop="checkList">
+              <div style="margin-top: 20px">
+                <el-checkbox-group v-model="goodsInfo.checkList">
+                  <el-checkbox v-for="(item,index) in colorLabel" :label="item" :key="index">{{item.value}}</el-checkbox>
+                </el-checkbox-group>
+              </div>
+              </el-form-item>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+              <div class="footer-td">
+                <el-button type="primary">取消</el-button>
+                <el-button type="primary" @click="addGoods('goodsInfo')">下一步</el-button>
+              </div>
+            </td>
+          </tr>
+      </table>
+     </el-form>
+    </div>
+</template>
+
+<script>
+export default {
+  name: 'AddGoods',
+  data: function () {
+    var numReg = /^[0-9]+$/
+    var numRe = new RegExp(numReg)
+    var checkfileList = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('配图不能为空'))
+      } else {
+        callback()
+      }
+    }
+    var checkLong = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('能为空'))
+      }
+      setTimeout(() => {
+        if (!numRe.test(value)) {
+          callback(new Error('请输入数字值'))
+        } else {
+          if (value < 10 || value > 500) {
+            callback(new Error('请输入10-500的范围数值'))
+          } else {
+            callback()
+          }
+        }
+      }, 1000)
+    }
+    var checkHeight = (rule, value, callback) => {
+      if (value) {
+        if (!numRe.test(value)) {
+          callback(new Error('请输入数字值'))
+        } else {
+          if (value < 10 && value > 500) {
+            callback(new Error('10到500之间'))
+          } else {
+            callback()
+          }
+        }
+      }
+    }
+    var checkDate = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('不能为空'))
+      } else if (!numRe.test(value)) {
+        callback(new Error('请输入数字值'))
+      } else {
+        if (value < 1600 && value > 2019) {
+          callback(new Error('请输入合理的年份'))
+        } else {
+          callback()
+        }
+      }
+    }
+    return {
+      params: { },
+      goodsInfo: { fileList: [], goods_name: '', long: '', width: '', height: '', author_id: '', classify_id: '', style_id: '', theme_id: '', put_space_id: '', goods_date: '', makings: '', checkList: [] },
+      author: [],
+      classify: [],
+      style: [],
+      theme: [],
+      put_space: [],
+      makings: [{value: '数码版'}, {value: '布面油画'}, {value: '精铜'}, {value: '纸本水墨'},
+        {value: 'pu+环保玻璃钢'}, {value: '布面丙烯'}, {value: '康颂纸收藏级艺术微喷'}, {value: '树脂着色'}, {value: 'pu+不锈钢'},
+        {value: '丝网版画'}, {value: '青铜着色'}, {value: '泛太克美术纸'}, {value: '木板蜡画'}, {value: '艺术微喷'}],
+      colorLabel: [{value: '粉红色'}, {value: '淡粉红色'}, {value: '棕色'}, {value: '红色'}, {value: '橙色'},
+        {value: '土黄色'}, {value: '黄色'}, {value: '绿色'}, {value: '深黄绿色'}, {value: '青色'}, {value: '蓝色'},
+        {value: '紫色'}, {value: '多彩'}, {value: '黑色'}, {value: '白色'}, {value: '灰色'}],
+      rules: {
+        goods_name: [
+          { required: true, message: '请输入作品名称', trigger: 'blur' },
+          { min: 1, max: 200, message: '长度在 1 到 30 个字符', trigger: 'blur' }
+        ],
+        long: [
+          { validator: checkLong, message: '', trigger: 'blur' }
+        ],
+        width: [
+          { validator: checkLong, message: '', trigger: 'blur' }
+        ],
+        height: [
+          { validator: checkHeight, message: '', trigger: 'blur' }
+        ],
+        author_id: [
+          { required: true, message: '选择作者', trigger: 'change' }
+        ],
+        classify_id: [
+          { required: true, message: '选择作品分类', trigger: 'change' }
+        ],
+        style_id: [
+          { required: true, message: '选择作品风格', trigger: 'change' }
+        ],
+        theme_id: [
+          { required: true, message: '选择作品题材', trigger: 'change' }
+        ],
+        put_space_id: [
+          { required: true, message: '选择摆放空间', trigger: 'change' }
+        ],
+        makings: [
+          { required: true, message: '选择作品材质', trigger: 'change' }
+        ],
+        goods_date: [
+          { validator: checkDate, message: '输入合理的年份', trigger: 'change' }
+        ],
+        checkList: [
+          { type: 'array', required: true, message: '请至少选择一个色系', trigger: 'change' }
+        ],
+        fileList: [
+          { validator: checkfileList, message: '配图不能为空', trigger: 'change' }
+        ]
+      }
+    }
+  },
+  created () {
+    // 接受查询分类数据
+    this.$http.get('/api/goodsManage/selectInfo')
+      .then((res) => {
+        this.author = res.data[0]
+        this.classify = res.data[1]
+        this.style = res.data[2]
+        this.theme = res.data[3]
+        this.put_space = res.data[4]
+      })
+  },
+  methods: {
+    // 提交商品数据
+    addGoods (formName) {
+      let that = this
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let Info = this.goodsInfo
+          let arrCheckList = []
+          let obj = Info.checkList
+          for (var i in obj) {
+            arrCheckList.push(obj[i].value)
+          }
+          Info.checkList = arrCheckList.join(',')
+          // 下面append的东西就会到form表单数据的fields中
+          this.params.append('goods_name', Info.goods_name)
+          this.params.append('long', Info.long)
+          this.params.append('width', Info.width)
+          this.params.append('height', Info.height)
+          this.params.append('author_id', Info.author_id)
+          this.params.append('classify_id', Info.classify_id)
+          this.params.append('style_id', Info.style_id)
+          this.params.append('theme_id', Info.theme_id)
+          this.params.append('put_space_id', Info.put_space_id)
+          this.params.append('goods_date', Info.goods_date)
+          this.params.append('makings', Info.makings)
+          this.params.append('checkList', Info.checkList)
+          let config = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+          that.$http.post('/yip/goodsManage/upImg', this.params, config).then(function (result) {
+            if (result.status === 200) {
+              that.$router.push({path: '/goodsManage/addGoodsPrice', query: {'goods_id': result.data[1][0].goods_id}})
+            }
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    onchange (file, fileList) {
+      this.params = new FormData()
+      this.params.append('file', file.raw, file.name)
+    },
+    handleRemove (file, fileList) {
+      this.params.delete('file')
+    }
+  }
+}
+</script>
+
+<style scoped>
+  h3{
+    color: #3a8ee6;
+  }
+.goodsInfo{
+  width: 100%;
+  height: 90%;
+  margin-bottom: 20px;
+  overflow-y: auto;
+}
+  .el-table>tr>td{
+    text-align: center;
+  }
+  .footer-td{
+    width: 70%;
+    margin: auto;
+    overflow: hidden;
+  }
+  .footer-td>button:first-child{
+    float: left;
+  }
+  .footer-td>button:last-child{
+    float: right;
+  }
+</style>
