@@ -1,0 +1,101 @@
+<template>
+    <div class="goodsInfo">
+      <el-form :model="goods_info" :rules="rules" ref="goods_info">
+        <el-form-item label="选择要添加评析的作品:" prop="goods_id">
+          <el-select v-model="goods_info.goods_id" placeholder="请选择">
+            <el-option v-for="item in goods_list" :key="item.value" :label="item.goods_name" :value="item.id">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="评析内容:" prop="rewText">
+          <el-input type="textarea" :rows="2" placeholder="请输入评析" v-model="goods_info.rewText"></el-input>
+        </el-form-item>
+        <el-form-item label="评析配图:" prop="fileList">
+          <el-upload class="upload-demo" action="" :limit=1 :auto-upload=false :on-change="onchange" :on-remove="handleRemove" :file-list="goods_info.fileList" list-type="picture"><el-button size="small" type="primary">选择图片</el-button>
+          </el-upload>
+        </el-form-item>
+        <el-button type="reset">重置</el-button>
+        <el-button type="primary" @click="addGood('goods_info')">提交</el-button>
+      </el-form>
+    </div>
+</template>
+
+<script>
+export default {
+  name: 'AddIntroduce',
+  data: function () {
+    var checkfileList = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('配图不能为空'))
+      } else {
+        callback()
+      }
+    }
+    return {
+      goods_info: { goods_id: '', rewText: '', fileList: [] },
+      goods_list: [],
+      params: { },
+      rules: {
+        rewText: [
+          { required: true, message: '请输入评析内容', trigger: 'blur' },
+          { min: 3, max: 200, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+        ],
+        goods_id: [
+          { required: true, message: '选择要添加评析的作品', trigger: 'change' }
+        ],
+        fileList: [
+          { validator: checkfileList, message: '配图不能为空', trigger: 'change' }
+        ]
+      }
+    }
+  },
+  methods: {
+    addGood (formName) {
+      let that = this
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          let Info = this.goods_info
+          // 下面append的东西就会到form表单数据的fields中
+          this.params.append('goods_id', Info.goods_id)
+          this.params.append('rewText', Info.rewText)
+          let config = {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+          that.$http.post('/yip/goodsManage/rewImgUp', this.params, config).then(function (result) {
+            if (result.status === 200) {
+              that.$router.push({ path: '/IntroduceGoods/delIntroduce' })
+            }
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    onchange (file, fileList) {
+      this.params = new FormData()
+      this.params.append('file', file.raw, file.name)
+    },
+    handleRemove (file, fileList) {
+      this.params.delete('file')
+    },
+    resetForm (formName) {
+      this.$refs[formName].resetFields()
+    }
+  },
+  created () {
+    this.$http.get('/api/goodsManage/getGoodsName')
+      .then((res) => {
+        this.goods_list = res.data
+      })
+  }
+}
+</script>
+
+<style scoped>
+  .goodsInfo{
+    width: 50%;
+    margin: auto;
+  }
+</style>
